@@ -18,6 +18,10 @@ npm run dev
 
 Open [http://127.0.0.1:43123](http://127.0.0.1:43123).
 
+## GitHub Pages
+
+Pushes to `main` deploy to **https://reztag.github.io/cursorbench-reloaded/** via GitHub Actions.
+
 ## Data
 
 Model metrics are extracted from the Cursor marketing site bundle (`CURSORBENCH_31_LEADERBOARD` source) and stored in `src/data/leaderboard.json`.

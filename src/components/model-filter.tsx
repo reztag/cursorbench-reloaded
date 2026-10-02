@@ -13,10 +13,13 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { LEADERBOARD } from "@/data";
 import { cn } from "@/lib/utils";
 
@@ -54,20 +57,31 @@ export function ModelFilter({ selectedIds, onChange }: Props) {
       : `${selectedIds.size} of ${LEADERBOARD.length} models`;
 
   return (
-    <div className="flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger
-          className="inline-flex h-9 w-full max-w-md items-center justify-between rounded-lg border border-border bg-background px-3 text-sm font-normal hover:bg-muted"
-          role="combobox"
-          aria-expanded={open}
+    <div className="relative z-20 flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger
+          render={
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full max-w-md justify-between font-normal"
+              aria-expanded={open}
+            />
+          }
         >
-          {label}
+          <span className="truncate">{label}</span>
           <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
-        </PopoverTrigger>
-        <PopoverContent className="w-[min(100vw-2rem,28rem)] p-0" align="center">
-          <Command>
-            <CommandInput placeholder="Search models…" />
-            <CommandList>
+        </DialogTrigger>
+        <DialogContent className="flex max-h-[min(85vh,32rem)] flex-col gap-0 p-0 sm:max-w-lg">
+          <DialogHeader className="border-b border-border px-4 py-3 text-left">
+            <DialogTitle>Choose models</DialogTitle>
+            <DialogDescription>
+              Toggle which variants appear on the charts and table.
+            </DialogDescription>
+          </DialogHeader>
+          <Command className="min-h-0 flex-1 rounded-none border-0">
+            <CommandInput placeholder="Search models…" className="h-10" />
+            <CommandList className="max-h-[min(60vh,24rem)]">
               <CommandEmpty>No model found.</CommandEmpty>
               {families.map(([family, entries]) => (
                 <CommandGroup key={family} heading={family}>
@@ -92,8 +106,19 @@ export function ModelFilter({ selectedIds, onChange }: Props) {
               ))}
             </CommandList>
           </Command>
-        </PopoverContent>
-      </Popover>
+          <div className="flex justify-end gap-2 border-t border-border px-4 py-3">
+            <Button type="button" variant="ghost" size="sm" onClick={selectAll}>
+              Select all
+            </Button>
+            <Button type="button" variant="ghost" size="sm" onClick={clearAll}>
+              Hide all
+            </Button>
+            <Button type="button" size="sm" onClick={() => setOpen(false)}>
+              Done
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
       <div className="flex gap-2">
         <Button type="button" variant="ghost" size="sm" onClick={selectAll}>
           Select all
