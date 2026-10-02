@@ -18,9 +18,7 @@ npm run dev
 
 Open [http://127.0.0.1:43123](http://127.0.0.1:43123).
 
-## GitHub Pages
-
-Pushes to `main` deploy to **https://reztag.github.io/cursorbench-reloaded/** via GitHub Actions.
+Repository: **https://github.com/reztag/cursorbench-reloaded**
 
 ## Data
 
